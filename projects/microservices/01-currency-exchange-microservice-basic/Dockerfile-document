@@ -1,0 +1,16 @@
+This Dockerfile contains instructions to build a Docker image that runs a Java application. The application is built using Maven and runs on OpenJDK 8.
+
+The Dockerfile has two stages:
+
+In the first stage, the base image used is maven:3.8.2-jdk-8-slim. This stage sets the working directory to /home/app, copies the current directory (.) to /home/app in the container, and then runs mvn clean package on the project. This step builds the Java application and creates a JAR file in the /home/app/target directory.
+
+In the second stage, the base image used is openjdk:8-jdk-alpine. This stage sets a volume at /tmp and exposes port 8000. Then, it copies the JAR file from the previous stage to the root directory in the container, sets the entry point to execute the JAR file with the command java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar.
+
+Overall, this Dockerfile can be used to build a Docker image that can run a Java application packaged as a JAR file.
+The command java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar is the entry point for the Docker image that is being built.
+
+It executes the java command to run the Java application packaged in the /app.jar file. The $JAVA_OPTS environment variable can be used to pass additional options to the Java command. These options can be set when running the Docker container.
+
+The option -Djava.security.egd=file:/dev/./urandom sets the entropy source for the Java SecureRandom class to /dev/./urandom. This is a good practice to ensure that cryptographic operations that rely on random numbers have sufficient entropy.
+
+Overall, this command sets up and runs the Java application in the Docker container that is built from the Dockerfile.
