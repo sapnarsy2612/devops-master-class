@@ -1,0 +1,7 @@
+This is a Docker Compose file written in YAML format that defines two services, currency-exchange and currency-conversion, along with a network called currency-compose-network. The currency-exchange service listens on port 8000 and runs the image in28min/currency-exchange:0.0.1-RELEASE, while the currency-conversion service listens on port 8100, runs the image in28min/currency-conversion:0.0.1-RELEASE, and depends on the currency-exchange service.
+
+The currency-conversion service also sets an environment variable CURRENCY_EXCHANGE_SERVICE_HOST to http://currency-exchange, which is the hostname of the currency-exchange service defined in the same Docker Compose file. This variable is used by the currency-conversion service to communicate with the currency-exchange service.
+
+Finally, the networks section defines a network called currency-compose-network, which will be used by the two services to communicate with each other.
+
+When you run docker-compose up command in the directory containing this docker-compose.yml file, Docker Compose will create two containers, one for each service, and connect them to the currency-compose-network network. This will allow the services to communicate with each other using their respective hostnames.
